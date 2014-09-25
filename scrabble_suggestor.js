@@ -5,7 +5,7 @@ var Scrabble = require('./scrabble');
 var letterCombos = require('./letter_combos');
 
 /**
- * Returns a list of valid combos that can be made with the list of letters
+ * Returns a list of valid combos that can be made with the list of letters.
  */
 function validCombos(dictionary, letters) {
   return letterCombos(letters).filter(function(combo) {
