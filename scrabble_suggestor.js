@@ -15,12 +15,23 @@ function validCombos(dictionary, letters) {
 }
 
 /**
- * Returns a list of valid words that can be made with the list of letters
+ * Returns an object with valid words as keys
+ * and scores as values.
  */
-function validWords(dictionary, letters) {
-  return validCombos(dictionary, letters).map(function(combo) {
-    return combo.join('');
+function validWordScores(dictionary, letters) {
+  var combos = validCombos(dictionary, letters);
+  var wordScores = {};
+
+  combos.forEach(function(combo) {
+    var word = combo.join('');
+    var score = combo.reduce(function(acc, letter) {
+      var value = Scrabble.values[letter.toUpperCase()];
+      return acc + value;
+    }, 0);
+    wordScores[word] = score;
   });
+
+  return wordScores;
 }
 
 /**
@@ -53,4 +64,4 @@ var dictionary = Trie.load('./ospd.txt');
 var letters = getLetters();
 
 console.log('Letters:', letters);
-console.log('Valid words:', validWords(dictionary, letters));
+console.log('Valid words:', validWordScores(dictionary, letters));
